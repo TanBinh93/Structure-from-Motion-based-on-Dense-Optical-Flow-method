@@ -4,7 +4,8 @@
 Here is the MATLAB code for determining the homologous point groups (point tracks) usable as input of Structure from Motion (SfM). We proposed a Dense Optical Fow-based SfM to deal with the scenes with few textures, structures and images acquired under strong illumination changes.
 
 This Code tested on MATLAB R2018a.  If you used this code or datasets in your work, please cite:
-```@inproceedings{binhicip2019,
+```
+@inproceedings{binhicip2019,
   author    = {Tan{-}Binh Phan and
                Dinh Hoan Trinh and
                Dominique Lamarque and
