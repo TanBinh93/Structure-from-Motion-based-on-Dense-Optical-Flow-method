@@ -1,12 +1,8 @@
-<snippet>
-  <content><![CDATA[
-# ${1:Project Name}
-
-TODO: Write a project description
+# Dense Optical Flow-based Structure from Motion
 
 ## Installation
 
-TODO: Describe the installation process
+
 
 ## Usage
 
@@ -31,6 +27,3 @@ TODO: Write credits
 ## License
 
 TODO: Write license
-]]></content>
-  <tabTrigger>readme</tabTrigger>
-</snippet>
