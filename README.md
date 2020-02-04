@@ -6,7 +6,7 @@ Here is the MATLAB code for determining the homologous point groups (point track
 This Code tested on MATLAB R2018a.  If you used this code or datasets in your work, please cite:
 ```
 @inproceedings{binhicip2019,
-  author    = {Tan{-}Binh Phan and Dinh Hoan Trinh and Dominique Lamarque and Didier Wolf and Christian Daul},
+  author    = {T.B.Phan and D.H.Trinh and D. Lamarque and D.Wolf and C.Daul},
   title     = {Dense Optical Flow for the Reconstruction of Weakly Textured and Structured Surfaces: Application to Endoscopy},
   booktitle = { {IEEE} International Conference on Image Processing, {ICIP}, Taipei, Taiwan, September 22-25, 2019},
   pages     = {310--314},
