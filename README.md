@@ -27,4 +27,4 @@ Contributions (bug reports, bug fixes, improvements, etc.) are very welcome and 
 
 ## License
 
-TODO: Write license
+[MIT](https://choosealicense.com/licenses/mit/)
