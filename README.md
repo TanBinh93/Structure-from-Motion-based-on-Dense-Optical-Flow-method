@@ -1,6 +1,6 @@
 <snippet>
   <content><![CDATA[
-# ${1:Project Name}
+# ${1:Dense Optical Flow-based Structure from Motion}
 
 TODO: Write a project description
 
