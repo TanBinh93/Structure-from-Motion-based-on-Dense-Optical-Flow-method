@@ -3,4 +3,4 @@ Here is the MATLAB code for determining the homologous point groups (point track
 
 This Code tested on MATLAB R2018a. 
 
-The parameters for optical flow and point grouping can be seen in file Readme.
+The parameters for optical flow and point grouping can be seen in file README.txt.
