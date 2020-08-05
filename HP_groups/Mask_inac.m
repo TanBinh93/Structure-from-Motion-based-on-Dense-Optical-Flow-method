@@ -1,0 +1,30 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Authors: Tan-Binh Phan, Dinh-Hoan Trinh, Christian Daul, Didier Wolf   %
+%  Contact: tan-binh.phan@univ-lorraine.fr                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Objective: Computing a binary mask  between two images which allows us to remove the inaccurate homologous point pairs.   
+%           
+%  Input: + M,N : height and width of image
+%         + u1, v1: optical flow forward along the x-axis and y-axis (computed for two images and using tvFlow_calc.m file)
+%         + u2, v2: optical flow backward along the x-axis and y-axis (computed for two images and using tvFlow_calc.m file)
+%         + occ_thr: a threshold value ensures an accurate pixel correspondence.
+%         
+% Output: + A binary mask with Mask(round(i),round(j))=0 means that there is no pair of corresponding points at position (j,i)
+%
+function Mask  = Mask_inac(M,N,u1,v1,u2,v2, occ_thr)
+Mask = zeros(M,N);
+for i = 1:M
+    for j = 1:N
+        Pij_0 = [j i];
+        P = round(Pij_0 + [u1(i,j) v1(i,j)]);
+        if (P(1)>0)&&(P(1) <N)&&(P(2)>0)&&(P(2) < M)
+            Pij_1 = P + [u2(P(2),P(1)) v2(P(2),P(1))];
+            if (norm(Pij_0 - Pij_1) <=occ_thr)
+%                   Mask(i,j) = 0;
+                Mask(i,j) = 1;
+            end
+        end
+    end
+end
+
+    

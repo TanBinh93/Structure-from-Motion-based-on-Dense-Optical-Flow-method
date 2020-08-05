@@ -1,54 +1,38 @@
-The Code tested on MATLAB R2018a 
+The Code was tested on MATLAB R2018a, Windows 64bit.
 
 Input: The set of images
 Output: The groups of homologous point (HP-groups)
 
-I) The parameters
+First of all, have to download optical flow code (OF_CODE) and setpath to the folder containing it.
+The description of input and output of each function can be seen inside the script.
 
-1) The Parameter for Optical Flow:
-PyramidF = [0.9 0.7 0.9 0.9 0.9 0.9 0.7 0.8 0.5 0.9];
-Lambda = [11 50 60 30 30 1.3 35 10 12 75];
+1) The parameters for determination of homologous points
+tau: a threshold for overlapping region between two images.
+epsilon: a threshold value ensures an accurate pixel correspondence.
+h: a grid size.
 
-st.dx = 3; st.dy = st.dx; % the size of the data window (the size of the correlation window, the size of the census window etc)
-st.nx = 5; st.ny = st.nx; % the size of non-local propagation window
-% rescalling settings
-st.old_auto_level = false;
-st.unEqualSampling = true;
-st.downsample_method = 'bilinear'; % the downsampling method used to build the pyramids
-st.upsample_method = 'bilinear'; % method for upsampling the flow
-st.downsample_method_for_bf = 'bilinear'; % the downsampling method for the pyramid used to compute the bilateral weights
-st.antialiasing_start_level = 3; % perform antialiasing for all the levels higher or equal than the given level; for the other levels do not use antialiasing
-% warping settings
-st.warps = 5; % the numbers of warps per level
-st.warping_method = 'bicubic';
-% numerical scheme's settings
-st.max_its = 35; % the number of equation iterations per warp
-%%
-Descriptor = 2;
-st.lambda = Lambda(Descriptor);
-st.D = sprintf('D%01i', Descriptor);
-st.pyramid_factor = 0.7;% PyramidF(Descriptor);
+2) Implementation of proposed method
 
-2) The parameter for group of homologous points determination 
-epsilon = 0.1 is the threshold for accurate correspondence (epsilon can be selected from 0.1 to 0.9)
-Tau = 2*W*H/3 where WH be the size of image
-h = 10 is the grid size
+-Step 1:  Determination of reference images.
+          (a) Optical flow computation for forward consecutive images by using forward_consecutive_OF.m
+          (b) The set of overlapping images with an arbitrary image can be found based on find_overlapping_regions.m
+          (c) Then determining the reference images by Reference_images.m 
 
-II) Function (the detailed format of input and output can be seen inside the scripts)
+-Step 2:  For each reference images I_k^{ref}, the HP-groups (the groups of homologous point) can be found by:
+          (a) Generate the 2D points for I_k^{ref}. 
+          (b) Find the corresponding points between I_k^{ref} and each images I_j belongs to the set of overlapping images with I_{k}^{ref}.
+          (c) HP-groups can be determined from pairwise point correspondences.
+             Step 2 is done by using Generate_HP.m file. The Generate_HP.m contains the files
+             - Reference_images.m which taken the resuts of step 1: the reference images and set of overlapping images with each reference image.
+             - Optical flow computation for determining the homologous points between I_k^{ref} and each images I_j.
+               Compute the optical flow backward and forward between two images using tvFlow_calc.m
+             - Mask_SR.m and Mask_inac.m which allow us to remove the specular reflections and inaccurate homologous point pairs.   
+A demo example can be found in Demo_HP_groups_using_DOF.m
 
-- To compute the optical flow between two images, using the script tvFlow_calc.m
-- To compute the reference images can use the script Reference_images.m
-- The set of overlapping regions with an arbitrary image can be found by using find_overlapping_regions.m
-- To crop the overlapping region between reference image I_k^{ref} and each image I_j belongs to the set of overlapping images with I_{k}^{ref},
-  using script Crop_Ovverlapping.m : the out put are the two sub-images of overlapping region extracted from I_k^{ref} and I_j.
-- The implementation of inaccurate mask and specular reflection mask can be found in Mask_SR.m and Mask_inac.m
-See the inside of each function to know the detail.
-
-III) Step by step of the proposed method
--Step 1: Computing OF forward and backward for each pair of consecutive images. 
--Step 2: For each image, finding the set of overlapping images with it.
--Step 3: Determination of reference images.
--Step 4: For each reference images I_k^{ref}, the HP-groups (the groups of homologous points) can be determined by:
-         + Generating the 2D points for I_k^{ref}.
-         + Determination of corresponding points between I_k^{ref} and each images I_j belongs to the set of overlapping images with I_{k}^{ref}.
-A demo example can be found in Generate_HP.m
+3) After obtaining the homologous point groups (point tracks), We can use it as follows
+- In MATLAB: It can use directly as input of structure-from-motion and visual odometry which compute the point tracks as a part of these algorithms.
+  https://fr.mathworks.com/help/vision/examples/structure-from-motion-from-multiple-views.html
+  https://fr.mathworks.com/help/vision/ug/monocular-visual-odometry.html
+- You can use HP-groups as an input of Colmap and visualSfM solfware by the guidance in
+  https://colmap.github.io/tutorial.html#feature-detection-and-extraction
+  http://ccwu.me/vsfm/doc.html#param
