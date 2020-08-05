@@ -1,7 +1,7 @@
 # Dense Optical Flow based Structure from Motion
 
 ## About
-Here is the MATLAB code for determining the homologous point groups (point tracks) usable as input of Structure from Motion (SfM). We proposed a Dense Optical Fow-based SfM to deal with the scenes with few textures, structures and images acquired under strong illumination changes.
+Here is the MATLAB code for determining the homologous point groups (point tracks) usable as the input of Structure from Motion (SfM). We proposed a Dense Optical Flow method to generate a numerous and large point tracks in scenes with few textures and structures, and images acquired under strong illumination changes.
 
 This Code tested on MATLAB R2018a.  If you used this code or datasets in your work, please cite:
 ```
