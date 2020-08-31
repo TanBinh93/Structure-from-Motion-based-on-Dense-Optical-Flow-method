@@ -27,6 +27,8 @@ or
 ## Video demo
 ### Demo algorithm
 See video "Supplementary_material_Algorithm.avi".
+### Example on real data
+See videos "Supplementary_fluorescence.mp4" and "Supplemetary_NBI.avi".
 ## Datasets
 https://drive.google.com/file/d/1PwFT9ONd073lT_OxjflIqy-42rX0eaLy/view?usp=sharing
 
